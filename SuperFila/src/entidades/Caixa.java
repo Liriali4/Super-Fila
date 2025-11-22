@@ -21,11 +21,16 @@ public class Caixa {
     }
 
     //Métodos
-    public void adicionarCliente(Cliente c) {
+    public void adicionarCliente(Cliente c, int tempoPorProduto) {
         int t = clientes.size();
-        c.idCliente = gerarCodigoDoCliente(t);
+        c.setIdCliente(gerarCodigoDoCliente(t));
+
         clientes.add(c);
         this.totalDeClientesNaFila = clientes.size();
+        if (t == 0) {
+            tempoRestanteParaClienteActual = c.getTotalProdutos() * tempoPorProduto;
+        }
+        System.out.println("\n Cliente adicionado na caixa " + this.idCaixa + "\n");
     }
 
     public void removerCliente() {

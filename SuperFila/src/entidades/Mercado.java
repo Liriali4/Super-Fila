@@ -24,16 +24,10 @@ public class Mercado {
         // produtos entre 2 e 120
         int totalProdutos = 2 + (int) (Math.random() * (120 - 2 + 1));
 
-        // cria o cliente
         Cliente novoCliente = new Cliente("", totalProdutos);
-
-        // encontra a caixa com menor fila
         Caixa destino = getCaixaComMenosClientes();
+        destino.adicionarCliente(novoCliente, this.tempoPorProduto);
 
-        // adiciona o cliente na caixa certa
-        destino.adicionarCliente(novoCliente);
-
-        System.out.println("\nCliente adicionado na caixa " + destino.getIdCaixa());
     }
 
     public void adicionarCaixa(Caixa c) {
