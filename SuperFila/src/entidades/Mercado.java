@@ -30,8 +30,10 @@ public class Mercado {
 
     }
 
-    public void adicionarCaixa(Caixa c) {
-        caixas.add(c);
+    public void adicionarCaixa() {
+        int idCaixa = this.caixas.size()+1;
+        Caixa novoCaixa = new Caixa(idCaixa);
+        caixas.add(novoCaixa);
     }
 
     public void removerCaixa() {

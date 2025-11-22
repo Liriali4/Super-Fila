@@ -28,7 +28,7 @@ public class Caixa {
         clientes.add(c);
         this.totalDeClientesNaFila = clientes.size();
         if (t == 0) {
-            tempoRestanteParaClienteActual = c.getTotalProdutos() * tempoPorProduto;
+            this.tempoRestanteParaClienteActual = c.getTotalProdutos() * tempoPorProduto;
         }
         System.out.println("\n Cliente adicionado na caixa " + this.idCaixa + "\n");
     }

@@ -2,7 +2,7 @@ package entidades;
 
 public class Cliente {
 
-    String idCliente;
+    private String idCliente;
     private int totalProdutos;
 
     public Cliente(String idCliente, int totalProdutos) {
@@ -10,14 +10,17 @@ public class Cliente {
         this.totalProdutos = totalProdutos;
     }
 
-    
-    
+    public int getTotalProdutos() {
+        return totalProdutos;
+    }
+
+    public void setIdCliente(String idCliente) {
+        this.idCliente = idCliente;
+    }
+
     @Override
     public String toString() {
         return "Cliente{" + "idCliente=" + idCliente + ", totalProdutos=" + totalProdutos + '}';
     }
 
-    public int getTotalProdutos() {
-        return totalProdutos;
-    }
 }

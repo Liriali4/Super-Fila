@@ -42,7 +42,10 @@ public class ModoManual {
                 case 2:
                    mercado.criarCliente();
                    break;
-
+                case 3:
+                    mercado.adicionarCaixa();
+                    break;
+                
             }
         } while (op != 0);
 
