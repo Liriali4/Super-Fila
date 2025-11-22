@@ -38,4 +38,10 @@ public class Caixa {
         return sugestao;
     }
 
+    @Override
+    public String toString() {
+        return """               
+               idCaixa=""" + idCaixa + ", \ntotalDeClientesNaFila=" + totalDeClientesNaFila + ", \ntempoRestanteParaClienteActual=" + tempoRestanteParaClienteActual + ", \ntotalDeClientesAtendidos=" + totalDeClientesAtendidos + ", \ntempoTotalDeAtendimento=" + tempoTotalDeAtendimento + ", \ntempoMedioDeAtendimentoPorCliente=" + tempoMedioDeAtendimentoPorCliente + ", \nclientes=" + clientes + "\n";
+    }
+
 }

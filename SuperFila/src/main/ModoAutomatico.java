@@ -10,12 +10,15 @@ public class ModoAutomatico {
         System.out.println("\n\nModo automático activado!!!\n\n");
 
         System.out.println("Qual é o tempo de atendimento de um produto?");
+        System.out.print("R: ");
         int tempoDeProduto = input.nextInt();
 
         System.out.println("Qual é o número de caixas?");
+        System.out.print("R: ");
         int totalDeCaixas = input.nextInt();
 
         System.out.println("Qual é o intervalo de tempo máximo entre clientes?");
+        System.out.print("R: ");
         int tempoEntreClientes = input.nextInt();
 
         System.out.println("1. Monstrar fila de caixas.");
