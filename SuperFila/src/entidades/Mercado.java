@@ -31,12 +31,13 @@ public class Mercado {
     }
 
     public void adicionarCaixa() {
-        int idCaixa = this.caixas.size()+1;
+        int idCaixa = this.caixas.size() + 1;
         Caixa novoCaixa = new Caixa(idCaixa);
         caixas.add(novoCaixa);
     }
 
     public void removerCaixa() {
+        this.caixas.removeIf(c -> c.getTotalDeClientesNaFila() == 0);
     }
 
     private Caixa getCaixaComMenosClientes() {

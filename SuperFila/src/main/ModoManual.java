@@ -45,7 +45,9 @@ public class ModoManual {
                 case 3:
                     mercado.adicionarCaixa();
                     break;
-                
+                case 4:
+                    mercado.removerCaixa();
+                    break;
             }
         } while (op != 0);
 
