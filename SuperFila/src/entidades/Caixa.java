@@ -21,7 +21,11 @@ public class Caixa {
     }
 
     //Métodos
-    public void adicionarCliente() {
+    public void adicionarCliente(Cliente c) {
+        int t = clientes.size();
+        c.idCliente = gerarCodigoDoCliente(t);
+        clientes.add(c);
+        this.totalDeClientesNaFila = clientes.size();
     }
 
     public void removerCliente() {
@@ -42,6 +46,14 @@ public class Caixa {
     public String toString() {
         return """               
                idCaixa=""" + idCaixa + ", \ntotalDeClientesNaFila=" + totalDeClientesNaFila + ", \ntempoRestanteParaClienteActual=" + tempoRestanteParaClienteActual + ", \ntotalDeClientesAtendidos=" + totalDeClientesAtendidos + ", \ntempoTotalDeAtendimento=" + tempoTotalDeAtendimento + ", \ntempoMedioDeAtendimentoPorCliente=" + tempoMedioDeAtendimentoPorCliente + ", \nclientes=" + clientes + "\n";
+    }
+
+    public int getTotalDeClientesNaFila() {
+        return totalDeClientesNaFila;
+    }
+
+    public int getIdCaixa() {
+        return idCaixa;
     }
 
 }

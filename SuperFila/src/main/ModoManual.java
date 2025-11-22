@@ -39,6 +39,9 @@ public class ModoManual {
                 case 1:
                     System.out.println(mercado.toString());
                     break;
+                case 2:
+                   mercado.criarCliente();
+                   break;
 
             }
         } while (op != 0);
