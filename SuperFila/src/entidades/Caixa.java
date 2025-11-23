@@ -116,8 +116,44 @@ public class Caixa {
 
     @Override
     public String toString() {
-        return """               
-               idCaixa=""" + idCaixa + ", \ntotalDeClientesNaFila=" + totalDeClientesNaFila + ", \ntempoRestanteParaClienteActual=" + tempoRestanteParaClienteActual + ", \ntotalDeClientesAtendidos=" + totalDeClientesAtendidos + ", \ntempoTotalDeAtendimento=" + tempoTotalDeAtendimento + ", \ntempoMedioDeAtendimentoPorCliente=" + tempoMedioDeAtendimentoPorCliente + ", \nclientes=" + clientes + "\n";
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("\n---------------------------------------\n");
+        sb.append(String.format("Caixa %d:\n", idCaixa));
+        sb.append(String.format("Clientes na fila: %d\n", clientes.size()));
+
+        if (!clientes.isEmpty()) {
+            sb.append(String.format(
+                    "Tempo restante para atender cliente do topo: %d seg\n",
+                    tempoRestanteParaClienteActual
+            ));
+        }
+
+        sb.append(String.format("Clientes atendidos: %d\n", totalDeClientesAtendidos));
+        sb.append(String.format("Tempo total de atendimento: %d seg\n", tempoTotalDeAtendimento));
+
+        if (totalDeClientesAtendidos > 0) {
+            sb.append(String.format(
+                    "Tempo médio atendimento: %d seg\n",
+                    tempoMedioDeAtendimentoPorCliente
+            ));
+        }
+
+        // Agora mostrar os clientes como uma fila
+        sb.append("Fila: ");
+
+        if (clientes.isEmpty()) {
+            sb.append("(vazia)\n");
+        } else {
+            for (Cliente c : clientes) {
+                sb.append(c.toString()).append(" --> ");
+            }
+            // remove última seta
+            sb.setLength(sb.length() - 5);
+            sb.append("\n");
+        }
+
+        return sb.toString();
     }
 
 }

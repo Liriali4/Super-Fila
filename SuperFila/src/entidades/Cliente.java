@@ -20,7 +20,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "idCliente=" + idCliente + ", totalProdutos=" + totalProdutos + '}';
+        return String.format("[%s | %d produtos]", idCliente, totalProdutos);
     }
 
 }

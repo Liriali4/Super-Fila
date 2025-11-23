@@ -61,12 +61,25 @@ public class Mercado {
 
     @Override
     public String toString() {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("\n=======================================\n");
+        sb.append("Parâmetros da Simulação\n");
+        sb.append(String.format("Tempo por produto: %d seg\n", tempoPorProduto));
+        sb.append(String.format("Número de caixas: %d\n", caixas.size()));
+
+        sb.append("=======================================\n\n");
+
         if (caixas.isEmpty()) {
-            return "Não existem caixas para listar.";
+            sb.append("Não existem caixas para listar.\n");
+        } else {
+            for (Caixa c : caixas) {
+                sb.append(c.toString());
+            }
         }
-        return """
-               Mercado 
-               caixas""" + caixas + "";
+        sb.append("\n\n");
+        return sb.toString();
     }
 
 }
