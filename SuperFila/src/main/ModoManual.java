@@ -23,7 +23,7 @@ public class ModoManual {
 
         // Inicializa o mercado com esses valores
         mercado.iniciarMercado(totalDeCaixas, tempoDeProduto);
-        
+
         int op;
         do {
             System.out.println("1. Monstrar fila de caixas.");
@@ -33,21 +33,32 @@ public class ModoManual {
             System.out.println("5. Atender T tempo.");
             System.out.println("0. Encerrar modo manual.");
             System.out.print("R: ");
-            op = input.nextInt();   
+            op = input.nextInt();
 
             switch (op) {
                 case 1:
                     System.out.println(mercado.toString());
                     break;
                 case 2:
-                   mercado.criarCliente();
-                   break;
+                    mercado.criarCliente();
+                    break;
                 case 3:
                     mercado.adicionarCaixa();
                     break;
                 case 4:
-                    mercado.removerCaixa();
+                    mercado.removerCaixaDeAtendimento();
                     break;
+                case 5:
+                    System.out.print("Digite o valor de tempo de atendimento: ");
+                    int tempoDeAtendimento = input.nextInt();
+                    mercado.atenderEmTempoT(tempoDeAtendimento);
+                    break;
+                case 0:
+                    System.out.println("Saindo do modo manual...");
+                    break;
+                default:
+                    System.out.println("Digite uma opção válida!!!!");
+                    
             }
         } while (op != 0);
 

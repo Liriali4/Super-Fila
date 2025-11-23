@@ -6,6 +6,7 @@ import java.util.List;
 public class Mercado {
 
     private int tempoPorProduto;
+    private int tempoDeAtendimento;
     private List<Caixa> caixas = new ArrayList<>();
 
     public Mercado() {
@@ -13,7 +14,7 @@ public class Mercado {
 
     public void iniciarMercado(int numCaixas, int tempoPorProduto) {
         this.tempoPorProduto = tempoPorProduto;
-
+        //inicializar os caixas do mercado
         for (int i = 0; i < numCaixas; i++) {
             Caixa novaCaixa = new Caixa(i + 1);
             caixas.add(novaCaixa);
@@ -36,21 +37,27 @@ public class Mercado {
         caixas.add(novoCaixa);
     }
 
-    public void removerCaixa() {
+    public void removerCaixaDeAtendimento() {
         this.caixas.removeIf(c -> c.getTotalDeClientesNaFila() == 0);
     }
 
+    public void atenderEmTempoT(int tempoDeAtendimento) {
+        for (Caixa caixa : caixas) {
+            caixa.atenderTempo(tempoDeAtendimento, tempoPorProduto);
+        }
+    }
+
+    //-----------------------------------       GETTERS      ------------------------------------------
     private Caixa getCaixaComMenosClientes() {
         Caixa menor = caixas.get(0);
-
         for (Caixa c : caixas) {
             if (c.getTotalDeClientesNaFila() < menor.getTotalDeClientesNaFila()) {
                 menor = c;
             }
         }
-
         return menor;
     }
+    //----------------------------------- FUNÇÕES AUXILIARES ------------------------------------------
 
     @Override
     public String toString() {
