@@ -9,7 +9,7 @@ public class ModoManual {
         Scanner input = new Scanner(System.in);
         Mercado mercado = new Mercado();
 
-        System.out.println("\n\nModo manual activado!!!\n\n");
+        System.out.println("\n----------------------------------Modo manual activado!!!----------------------------------\n");
 
         // Tempo por produto
         System.out.print("Qual é o tempo de atendimento de um produto? (Enter para 5 segundos): ");
@@ -54,7 +54,7 @@ public class ModoManual {
                     mercado.atenderEmTempoT(tempoDeAtendimento);
                     break;
                 case 0:
-                    System.out.println("Saindo do modo manual...");
+                    System.out.println("Saindo do modo manual...\n");
                     break;
                 default:
                     System.out.println("Digite uma opção válida!!!!");

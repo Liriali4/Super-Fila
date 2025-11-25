@@ -33,7 +33,8 @@ public class SuperFila {
                 case 0:
                     System.out.println("\nEncerrando...\n");
                     break;
-
+                default:
+                    System.out.println("Digite uma opção válida!!!");
             }
         } while (op != 0);
 
