@@ -23,17 +23,16 @@ public class Mercado {
 
     public void criarCliente() {
         // produtos entre 2 e 120
-        int totalProdutos = 2 + (int) (Math.random() * (10 - 2 + 1));
-        
+        int totalProdutos = 2 + (int) (Math.random() * (120 - 2 + 1));
+
         Cliente novoCliente = new Cliente("", totalProdutos);
         Caixa destino = getCaixaComMenosClientes();
         destino.adicionarCliente(novoCliente, this.tempoPorProduto);
-
     }
 
     public void adicionarCaixa() {
         int idCaixa;
-        if (caixas.size() != 0) {
+        if (caixas.isEmpty() != true) {
             //Pega o id do último caixa na fila
             Caixa ultimaCaixa = caixas.get((caixas.size() - 1));
             idCaixa = ultimaCaixa.getIdCaixa() + 1;
@@ -49,8 +48,12 @@ public class Mercado {
     }
 
     public void atenderEmTempoT(int tempoDeAtendimento) {
-        for (Caixa caixa : caixas) {
-            caixa.atenderTempo(tempoDeAtendimento, tempoPorProduto);
+        if (caixas.isEmpty() != true) {
+            for (Caixa caixa : caixas) {
+                caixa.atenderTempo(tempoDeAtendimento, tempoPorProduto);
+            }
+        } else {
+            System.out.println("Não há caixas registrados no SuperMercado!!!\n\n");
         }
     }
 

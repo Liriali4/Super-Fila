@@ -66,9 +66,10 @@ public class ModoManual {
                     System.out.println("Saindo do modo manual...\n");
                     GestorDeFicheiros.registrarSimulacao("Modo Manual", log.toString());
                     break;
-            }
 
+                default:
+                    System.out.println("Digite uma opção válida!!!");
+            }
         } while (op != 0);
     }
-
 }

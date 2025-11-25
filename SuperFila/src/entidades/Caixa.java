@@ -115,14 +115,7 @@ public class Caixa {
     }
 
     //----------------------------------- FUNÇÕES AUXILIARES ------------------------------------------
-    private Cliente getClienteAtual() {
-        if (clientes.isEmpty()) {
-            return null;
-        }
-        return clientes.get(0);
-    }
-
-    public static String gerarCodigoDoCliente(int contador) {
+     public static String gerarCodigoDoCliente(int contador) {
         String sugestao = 'C' + String.format("%04d", contador + 1);
         return sugestao;
     }

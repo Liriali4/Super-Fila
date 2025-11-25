@@ -13,7 +13,10 @@ public class SuperFila {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         int op;
-        System.out.println("        Bem vindo ao SuperFila    ");
+        System.out.println("\n--------------------------------------------------------------------");
+        System.out.println("                    Bem vindo ao SuperFila                  ");
+        System.out.println("--------------------------------------------------------------------\n");
+
         System.out.println("De qual modo gostaria de iniciar a simulação?");
 
         do {
@@ -21,9 +24,9 @@ public class SuperFila {
             System.out.println("2. Modo Automático.");
             System.out.println("0. Encerrar programa.");
             System.out.print("R:");
-            op =  input.nextInt();
+            op = input.nextInt();
 
-            switch (op){
+            switch (op) {
                 case 1:
                     ModoManual.manual();
                     break;
