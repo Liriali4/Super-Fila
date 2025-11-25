@@ -22,16 +22,9 @@ public class Cliente {
         this.idCliente = idCliente;
     }
 
-    public String toCard() {
-    return String.format(
-        "┌───────────────┐\n" +
-        "│ Cliente %s    │\n" +
-        "│ %d produtos   │\n" +
-        "└───────────────┘",
-        idCliente,
-        totalProdutos
-    );
-}
-
+    @Override
+    public String toString() {
+        return "Cliente " + idCliente + " (" + totalProdutos + " prod.)";
+    }
 
 }

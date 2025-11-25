@@ -23,8 +23,8 @@ public class Mercado {
 
     public void criarCliente() {
         // produtos entre 2 e 120
-        int totalProdutos = 2 + (int) (Math.random() * (120 - 2 + 1));
-
+        int totalProdutos = 2 + (int) (Math.random() * (10 - 2 + 1));
+        
         Cliente novoCliente = new Cliente("", totalProdutos);
         Caixa destino = getCaixaComMenosClientes();
         destino.adicionarCliente(novoCliente, this.tempoPorProduto);
@@ -32,7 +32,14 @@ public class Mercado {
     }
 
     public void adicionarCaixa() {
-        int idCaixa = this.caixas.size() + 1;
+        int idCaixa;
+        if (caixas.size() != 0) {
+            //Pega o id do último caixa na fila
+            Caixa ultimaCaixa = caixas.get((caixas.size() - 1));
+            idCaixa = ultimaCaixa.getIdCaixa() + 1;
+        } else {
+            idCaixa = this.caixas.size() + 1;
+        }
         Caixa novoCaixa = new Caixa(idCaixa);
         caixas.add(novoCaixa);
     }
@@ -65,12 +72,12 @@ public class Mercado {
         StringBuilder sb = new StringBuilder();
 
         sb.append("┌────────────────────────────────────────────────────────────────┐\n");
-        sb.append("│            PARÂMETROS DA SIMULAÇÃO                │\n");
+        sb.append("│            PARÂMETROS DA SIMULAÇÃO                    │\n");
         sb.append(String.format(
-                "│  Tempo atendimento/produto: %ds \n│  Nº Caixas: %d\n│  Intervalo máximo entre clientes: %d\n",
+                "│  Tempo atendimento/produto: %ds                        │\n│  Nº Caixas: %d                                         │\n│  Intervalo máximo entre clientes: %d                   │\n",
                 tempoPorProduto, caixas.size(), tempoDeAtendimento
         ));
-        sb.append("└───────────────────────────────────────────────────────────────┘\n\n");
+        sb.append("└────────────────────────────────────────────────────────────────┘\n\n");
 
         for (Caixa c : caixas) {
             sb.append(c).append("\n");

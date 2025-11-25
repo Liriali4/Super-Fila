@@ -129,67 +129,35 @@ public class Caixa {
 
     @Override
     public String toString() {
-
         StringBuilder sb = new StringBuilder();
 
-        // ─────────── DESENHA A CAIXA ──────────────────
-        sb.append(String.format("┌─────────────── CAIXA %d ────────────────┐\n", idCaixa));
+        sb.append(String.format("┌─────────────── CAIXA %d ───────────────┐\n", idCaixa));
         sb.append(String.format("│ Clientes na fila: %d\n", clientes.size()));
         sb.append(String.format("│ Tempo restante do topo: %ds\n", tempoRestanteParaClienteActual));
         sb.append(String.format("│ Total atendidos: %d\n", totalDeClientesAtendidos));
         sb.append(String.format("│ Tempo total atendimento: %ds\n", tempoTotalDeAtendimento));
         sb.append(String.format("│ Média: %ds\n", tempoMedioDeAtendimentoPorCliente));
-        sb.append("└──────────────────────────────────────────┘");
+        sb.append("└────────────────────────────────────────┘\n");
 
-        // ─────────── DESENHA OS CLIENTES EM LINHA ────────
+        // Imprimir fila de clientes da direita para esquerda
         if (!clientes.isEmpty()) {
 
-            sb.append("\n");
+            sb.append("    ");
 
-            // Vamos montar linha a linha dos cartões dos clientes
-            // Cada cartão tem 3 linhas
-            //  linha 0: topo
-            //  linha 1: nome cliente
-            //  linha 2: nº produtos
-            //  linha 3: base
-            // Arrays temporários para cada linha
-            List<String> linha0 = new ArrayList<>();
-            List<String> linha1 = new ArrayList<>();
-            List<String> linha2 = new ArrayList<>();
-            List<String> linha3 = new ArrayList<>();
+            for (int i = 0; i < clientes.size(); i++) {
+//               int i = clientes.size() - 1; i >= 0; i--
+                Cliente cli = clientes.get(i);
 
-            // Preencher as linhas
-            for (Cliente cli : clientes) {
-                linha0.add("┌───────────────┐");
-                linha1.add(String.format("│ Cliente %s    │", cli.getIdCliente()));
-                linha2.add(String.format("│ %d produtos   │", cli.getTotalProdutos()));
-                linha3.add("└───────────────┘");
-            }
-
-            // Agora imprimir horizontalmente
-            sb.append("     ");   // deslocar um pouco para a direita
-
-            // Linha do topo + setas apontando para o caixa
-            for (int i = linha0.size() - 1; i >= 0; i--) {
-                sb.append("◀ ").append(linha0.get(i)).append(" ");
-            }
-
-            sb.append("\n     ");
-            for (int i = linha1.size() - 1; i >= 0; i--) {
-                sb.append("  ").append(linha1.get(i)).append(" ");
-            }
-
-            sb.append("\n     ");
-            for (int i = linha2.size() - 1; i >= 0; i--) {
-                sb.append("  ").append(linha2.get(i)).append(" ");
-            }
-
-            sb.append("\n     ");
-            for (int i = linha3.size() - 1; i >= 0; i--) {
-                sb.append("  ").append(linha3.get(i)).append(" ");
+                sb.append(String.format(
+                        " ◀─ [%-6s|%3dp] ",
+                        cli.getIdCliente(),
+                        cli.getTotalProdutos()
+                ));
             }
 
             sb.append("\n");
+        } else {
+            sb.append("    (Sem clientes na fila)\n");
         }
 
         return sb.toString();
