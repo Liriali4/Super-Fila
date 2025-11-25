@@ -64,21 +64,18 @@ public class Mercado {
 
         StringBuilder sb = new StringBuilder();
 
-        sb.append("\n=======================================\n");
-        sb.append("Parâmetros da Simulação\n");
-        sb.append(String.format("Tempo por produto: %d seg\n", tempoPorProduto));
-        sb.append(String.format("Número de caixas: %d\n", caixas.size()));
+        sb.append("┌────────────────────────────────────────────────────────────────┐\n");
+        sb.append("│            PARÂMETROS DA SIMULAÇÃO                │\n");
+        sb.append(String.format(
+                "│  Tempo atendimento/produto: %ds \n│  Nº Caixas: %d\n│  Intervalo máximo entre clientes: %d\n",
+                tempoPorProduto, caixas.size(), tempoDeAtendimento
+        ));
+        sb.append("└───────────────────────────────────────────────────────────────┘\n\n");
 
-        sb.append("=======================================\n\n");
-
-        if (caixas.isEmpty()) {
-            sb.append("Não existem caixas para listar.\n");
-        } else {
-            for (Caixa c : caixas) {
-                sb.append(c.toString());
-            }
+        for (Caixa c : caixas) {
+            sb.append(c).append("\n");
         }
-        sb.append("\n\n");
+
         return sb.toString();
     }
 

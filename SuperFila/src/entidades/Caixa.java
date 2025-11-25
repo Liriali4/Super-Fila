@@ -34,8 +34,9 @@ public class Caixa {
 
     public void atenderTempo(int T, int tempoPorProduto) {
 
-        // Se não tiver clientes, não faz nada
         if (clientes.isEmpty()) {
+            tempoRestanteParaClienteActual = 0;
+            totalDeClientesNaFila = 0;
             return;
         }
 
@@ -43,50 +44,62 @@ public class Caixa {
 
             Cliente atual = clientes.get(0);
 
-            // Se for a primeira vez, tempoRestante já deve estar calculado no adicionarCliente
-            // CASO 1: T < tempoRestante
+            // CASO 1 – T < tempo restante
             if (T < tempoRestanteParaClienteActual) {
+
                 tempoRestanteParaClienteActual -= T;
                 tempoTotalDeAtendimento += T;
-                T = 0; // acabou o tempo
-            } // CASO 2: T == tempoRestante
+                T = 0;
+            } // CASO 2 – T == tempo restante
             else if (T == tempoRestanteParaClienteActual) {
+
                 tempoTotalDeAtendimento += T;
                 totalDeClientesAtendidos++;
 
-                // remover cliente
                 clientes.remove(0);
 
-                // recalcular média
-                tempoMedioDeAtendimentoPorCliente
-                        = tempoTotalDeAtendimento / totalDeClientesAtendidos;
+                // ATUALIZA A FILA
+                totalDeClientesNaFila = clientes.size();
+
+                // Recalcula média
+                if (totalDeClientesAtendidos > 0) {
+                    tempoMedioDeAtendimentoPorCliente
+                            = tempoTotalDeAtendimento / totalDeClientesAtendidos;
+                }
 
                 T = 0;
 
-                // se ainda existir cliente depois, calcular tempo dele
+                // Se ainda existe cliente, preparar tempo do próximo
                 if (!clientes.isEmpty()) {
-                    Cliente proximo = clientes.get(0);
                     tempoRestanteParaClienteActual
-                            = proximo.getTotalProdutos() * tempoPorProduto;
+                            = clientes.get(0).getTotalProdutos() * tempoPorProduto;
+                } else {
+                    tempoRestanteParaClienteActual = 0;
                 }
-            } // CASO 3: T > tempoRestante
+            } // CASO 3 – T > tempo restante
             else {
-                // Tempo restante é consumido completamente
+
                 T -= tempoRestanteParaClienteActual;
                 tempoTotalDeAtendimento += tempoRestanteParaClienteActual;
                 totalDeClientesAtendidos++;
 
-                // remover o cliente atendido
                 clientes.remove(0);
 
-                tempoMedioDeAtendimentoPorCliente
-                        = tempoTotalDeAtendimento / totalDeClientesAtendidos;
+                // ATUALIZA A FILA
+                totalDeClientesNaFila = clientes.size();
 
-                // se houver próximo cliente, calcular seu tempo também
+                // Recalcula média
+                if (totalDeClientesAtendidos > 0) {
+                    tempoMedioDeAtendimentoPorCliente
+                            = tempoTotalDeAtendimento / totalDeClientesAtendidos;
+                }
+
+                // Novo cliente ou fila acabou
                 if (!clientes.isEmpty()) {
-                    Cliente proximo = clientes.get(0);
                     tempoRestanteParaClienteActual
-                            = proximo.getTotalProdutos() * tempoPorProduto;
+                            = clientes.get(0).getTotalProdutos() * tempoPorProduto;
+                } else {
+                    tempoRestanteParaClienteActual = 0;
                 }
             }
         }
@@ -116,40 +129,66 @@ public class Caixa {
 
     @Override
     public String toString() {
+
         StringBuilder sb = new StringBuilder();
 
-        sb.append("\n---------------------------------------\n");
-        sb.append(String.format("Caixa %d:\n", idCaixa));
-        sb.append(String.format("Clientes na fila: %d\n", clientes.size()));
+        // ─────────── DESENHA A CAIXA ──────────────────
+        sb.append(String.format("┌─────────────── CAIXA %d ────────────────┐\n", idCaixa));
+        sb.append(String.format("│ Clientes na fila: %d\n", clientes.size()));
+        sb.append(String.format("│ Tempo restante do topo: %ds\n", tempoRestanteParaClienteActual));
+        sb.append(String.format("│ Total atendidos: %d\n", totalDeClientesAtendidos));
+        sb.append(String.format("│ Tempo total atendimento: %ds\n", tempoTotalDeAtendimento));
+        sb.append(String.format("│ Média: %ds\n", tempoMedioDeAtendimentoPorCliente));
+        sb.append("└──────────────────────────────────────────┘");
 
+        // ─────────── DESENHA OS CLIENTES EM LINHA ────────
         if (!clientes.isEmpty()) {
-            sb.append(String.format(
-                    "Tempo restante para atender cliente do topo: %d seg\n",
-                    tempoRestanteParaClienteActual
-            ));
-        }
 
-        sb.append(String.format("Clientes atendidos: %d\n", totalDeClientesAtendidos));
-        sb.append(String.format("Tempo total de atendimento: %d seg\n", tempoTotalDeAtendimento));
+            sb.append("\n");
 
-        if (totalDeClientesAtendidos > 0) {
-            sb.append(String.format(
-                    "Tempo médio atendimento: %d seg\n",
-                    tempoMedioDeAtendimentoPorCliente
-            ));
-        }
+            // Vamos montar linha a linha dos cartões dos clientes
+            // Cada cartão tem 3 linhas
+            //  linha 0: topo
+            //  linha 1: nome cliente
+            //  linha 2: nº produtos
+            //  linha 3: base
+            // Arrays temporários para cada linha
+            List<String> linha0 = new ArrayList<>();
+            List<String> linha1 = new ArrayList<>();
+            List<String> linha2 = new ArrayList<>();
+            List<String> linha3 = new ArrayList<>();
 
-        // Agora mostrar os clientes como uma fila
-        sb.append("Fila: ");
-
-        if (clientes.isEmpty()) {
-            sb.append("(vazia)\n");
-        } else {
-            for (Cliente c : clientes) {
-                sb.append(c.toString()).append(" --> ");
+            // Preencher as linhas
+            for (Cliente cli : clientes) {
+                linha0.add("┌───────────────┐");
+                linha1.add(String.format("│ Cliente %s    │", cli.getIdCliente()));
+                linha2.add(String.format("│ %d produtos   │", cli.getTotalProdutos()));
+                linha3.add("└───────────────┘");
             }
-            // remove última seta
-            sb.setLength(sb.length() - 5);
+
+            // Agora imprimir horizontalmente
+            sb.append("     ");   // deslocar um pouco para a direita
+
+            // Linha do topo + setas apontando para o caixa
+            for (int i = linha0.size() - 1; i >= 0; i--) {
+                sb.append("◀ ").append(linha0.get(i)).append(" ");
+            }
+
+            sb.append("\n     ");
+            for (int i = linha1.size() - 1; i >= 0; i--) {
+                sb.append("  ").append(linha1.get(i)).append(" ");
+            }
+
+            sb.append("\n     ");
+            for (int i = linha2.size() - 1; i >= 0; i--) {
+                sb.append("  ").append(linha2.get(i)).append(" ");
+            }
+
+            sb.append("\n     ");
+            for (int i = linha3.size() - 1; i >= 0; i--) {
+                sb.append("  ").append(linha3.get(i)).append(" ");
+            }
+
             sb.append("\n");
         }
 

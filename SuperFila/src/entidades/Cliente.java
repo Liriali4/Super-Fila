@@ -14,13 +14,24 @@ public class Cliente {
         return totalProdutos;
     }
 
+    public String getIdCliente() {
+        return idCliente;
+    }
+
     public void setIdCliente(String idCliente) {
         this.idCliente = idCliente;
     }
 
-    @Override
-    public String toString() {
-        return String.format("[%s | %d produtos]", idCliente, totalProdutos);
-    }
+    public String toCard() {
+    return String.format(
+        "┌───────────────┐\n" +
+        "│ Cliente %s    │\n" +
+        "│ %d produtos   │\n" +
+        "└───────────────┘",
+        idCliente,
+        totalProdutos
+    );
+}
+
 
 }
