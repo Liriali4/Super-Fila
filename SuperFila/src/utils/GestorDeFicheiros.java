@@ -8,10 +8,10 @@ import java.time.format.DateTimeFormatter;
 
 public class GestorDeFicheiros {
 
-    private static final String FICHEIRO = "relatorio_simulacao.txt";
+    private static String FICHEIRO = "relatorio_simulacao.txt";
 
-    private static final DateTimeFormatter FORMATO =
-            DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    private static DateTimeFormatter FORMATO
+            = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
     public static void registrarSimulacao(String titulo, String conteudo) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FICHEIRO, true))) {
